@@ -1,0 +1,1 @@
+2025-05-17 14:44:56,421 - __main__ - ERROR - An error was encountered when trying             to assume role arn:aws:iam::532315718657:role/aws-bedrock-access. Traceback: An error occurred (InvalidClientTokenId) when calling the AssumeRole operation: The security token included in the request is invalid.

@@ -1,0 +1,28 @@
+[project]
+name = "aws-bedrock-image-search"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "shrishti-pillay",email = "shrishtipillay@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "vecs",
+    "boto3",
+    "matplotlib",
+    "pydantic",
+    "pydantic-settings"
+]
+
+[tool.poetry]
+packages = [{include = "aws_bedrock_image_search", from = "src"}]
+
+[tool.poetry.scripts]
+seed = "aws_bedrock_image_search.main:seed"
+search = "aws_bedrock_image_search.main:search"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
