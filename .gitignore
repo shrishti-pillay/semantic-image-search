@@ -1,0 +1,15 @@
+# Python venv
+.env
+development
+.vscode
+
+# Poetry
+poetry.lock
+
+# Python 
+__pycache__
+
+# Images
+src/aws_bedrock_image_search/images
+
+

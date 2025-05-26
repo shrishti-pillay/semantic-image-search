@@ -13,4 +13,3 @@ class AppConfig(BaseSettings):
 
 if __name__ == "__main__":
     config = AppConfig()
-    print(config)

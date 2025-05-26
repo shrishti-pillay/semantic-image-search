@@ -41,13 +41,12 @@ def get_embedding_from_titan_multimodal(body, bedrock_client):
     )
 
     response_body = json.loads(response.get("body").read())
-    print(response_body)
     return response_body["embedding"]
 
-def encode_image(file_path):
+def encode_image(file_path, bedrock_client):
     """Generate embedding from the image at file_path."""
 
     base64_string = read_file_as_base64(file_path)
     body = construct_bedrock_image_body(base64_string)
-    emb = get_embedding_from_titan_multimodal(body)
+    emb = get_embedding_from_titan_multimodal(body, bedrock_client)
     return emb

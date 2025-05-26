@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 
 from aws_clients.bedrock_client import BedrockClient
@@ -43,8 +44,6 @@ def search(query_term: Optional[str] = None):
         filters={"type": {"$eq": "jpg"}},   # metadata filters
     )
     result = results[0]
-    print(result)
-    plt.title(result)
     image = mpimg.imread('./images/' + result)
     plt.imshow(image)
     plt.show()
@@ -60,14 +59,11 @@ def seed():
     # Get or create a collection of vectors with 1024 dimensions
     images = vx.get_or_create_collection(name="image_vectors", dimension=1024)
 
-    # List of image paths
-    image_paths = ['./images/one.jpg', './images/two.jpg', './images/three.jpg', './images/four.jpg']
-
-    # Generate image embeddings and construct records for upsert
-    records = [
-        (img_path.split('/')[-1], encode_image(img_path, bedrock_client), {"type": "jpg"})
-        for img_path in image_paths
-    ]
+    #Generate image embeddings and construct records for upsert
+    records = []
+    for img_name in os.listdir('./images'):
+        img_path = './images/'+img_name
+        records.append((img_name, encode_image(img_path, bedrock_client), {"type": "jpg"}))
 
     # Add records to the *images* collection
     images.upsert(records=records)
@@ -78,4 +74,4 @@ def seed():
     print("Created index")
 
 if __name__ == '__main__':
-    search("door")
+    search(query_term=sys.argv[1] if len(sys.argv) > 1 else None)
