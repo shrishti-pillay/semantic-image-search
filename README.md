@@ -128,8 +128,9 @@ poetry run seed
 
 Search for images similar to a text query:
 
+Ensure you are in `src/aws_bedrock_image_search/` directory
+
 ```sh
-cd src/aws_bedrock_image_search/
 poetry run search "text" "your search term"
 ```
 
@@ -137,20 +138,19 @@ poetry run search "text" "your search term"
 
 Search for images similar to another image:
 
+Ensure you are in `src/aws_bedrock_image_search/` directory
+
 ```sh
-cd src/aws_bedrock_image_search/
 poetry run search "image" "your/image/path"
 ```
 
 Or run the script directly:
 
 ```sh
-cd src/aws_bedrock_image_search/
 python3 main.py "text" "your search term"
 ```
 
 ```sh
-cd src/aws_bedrock_image_search/
 python3 main.py "image" "your/image/path"
 ```
 
