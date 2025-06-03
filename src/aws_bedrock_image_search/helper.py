@@ -2,6 +2,9 @@ import base64
 import json
 import sys
 
+from matplotlib import pyplot as plt
+from matplotlib import image as mpimg
+
 def read_file_as_base64(file_path):
     """Encode image as base64 string."""
     try: 
@@ -62,3 +65,9 @@ def encode_image(file_path, bedrock_client):
     body = construct_bedrock_image_body(base64_string)
     emb = get_embedding_from_titan_multimodal(body, bedrock_client)
     return emb
+
+def show_results(results: list):
+    result = results[0]
+    image = mpimg.imread('./images/' + result)
+    plt.imshow(image)
+    plt.show()

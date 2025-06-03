@@ -16,7 +16,9 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "aws_bedrock_image_search", from = "src"}]
+packages = [{include = "aws_bedrock_image_search", from = "src"},
+            {include = "aws_clients", from = "src"},
+            {include = "supabase_clients", from = "src"}]
 
 [tool.poetry.scripts]
 seed = "aws_bedrock_image_search.main:seed"
