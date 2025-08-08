@@ -1,5 +1,6 @@
 import base64
 import json
+import re
 import sys
 
 from matplotlib import pyplot as plt
@@ -25,7 +26,6 @@ def construct_bedrock_image_body(base64_string):
 
     https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-titan-embed-mm.html
     """
-
     return json.dumps(
         {
             "inputImage": base64_string,
@@ -58,16 +58,26 @@ def encode_text(prompt, bedrock_client):
     emb = get_embedding_from_titan_multimodal(body, bedrock_client)
     return emb
 
-def encode_image(file_path, bedrock_client):
+def strip_data_url_prefix(data_url):
+    # This pattern matches the prefix and captures the base64 portion
+    match = re.match(r"^data:image/[^;]+;base64,(.*)", data_url)
+    if match:
+        return match.group(1)  # return only the base64-encoded data
+    return None 
+
+def encode_image(file, bedrock_client):
     """Generate embedding from the image at file_path."""
 
-    base64_string = read_file_as_base64(file_path)
+    if file.startswith('data:image/'):
+        base64_string = strip_data_url_prefix(file)
+    else:
+        base64_string = read_file_as_base64(file)
     body = construct_bedrock_image_body(base64_string)
     emb = get_embedding_from_titan_multimodal(body, bedrock_client)
     return emb
 
 def show_results(results: list):
-    result = results[0]
+    result = results[0][0]
     image = mpimg.imread('./images/' + result)
     plt.imshow(image)
     plt.show()

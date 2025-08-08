@@ -3,10 +3,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class AppConfig(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file = os.getenv("ENV_FILE", ".env"),
+        env_file = ".env",
         env_file_encoding="utf-8",
         case_sensitive=True,
-        extra="forbid",
+        extra="ignore"
     )
     db_connection : str
     aws_role_arn: str
